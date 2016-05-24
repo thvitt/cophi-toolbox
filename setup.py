@@ -3,8 +3,8 @@
 from setuptools import setup
 
 setup(
-    name='cophi-toolbox',
-    version='0.0.1dev1',
+    name='cophi_toolbox',
+    version='0.0.1.dev1',
     description='Cophi toolbox',
     author=", ".join(['Thorsten Vitt <thorsten.vitt@uni-wuerzburg.de>',
                       'Fotis Jannidis <fotis.jannidis@uni-wuerzburg.de>']),
@@ -12,7 +12,7 @@ setup(
         'Development Status :: 3 - Alpha',
         'Programming Language :: Python :: 3',
     ],
-    packages=['ctoolbox'],
+    packages=['cophi_toolbox'],
     setup_requires=[
         'numpy'       # work around https://github.com/numpy/numpy/issues/2434
     ],
