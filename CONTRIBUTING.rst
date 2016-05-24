@@ -4,7 +4,7 @@ Contributing to the Cophi Toolbox
 Setup
 -----
 
-After cloning the project run `pip install -e .` to install the project with all dependencies.
+After cloning the project run `pip install -e .` in the project directory to install the project with all dependencies. Run `pip install -r requirements.txt` to install the development-only requirements.
 
 Guidelines
 ----------
@@ -24,7 +24,7 @@ Each module, class, function, and method should have a docstring. Docstrings sho
 Tests
 """""
 
-Tests should either be doctests_ and thus directly included in the respective docstrings, or tests that can be run using the nose test framework, see the `nose introduction`_. It's really worthwhile to write tests, so please do.
+Tests should either be doctests_ and thus directly included in the respective docstrings, or tests that can be run using the nose test framework, see the `nose introduction`_. It's really worthwhile to write tests, so please do. Write nose tests into the ``test`` directory. Run tests using `nosetests` or `nosetests -v`.
 
 
 Dependencies
