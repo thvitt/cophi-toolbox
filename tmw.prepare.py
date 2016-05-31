@@ -40,10 +40,7 @@ def read_tei5(teiPath, txtFolder, xpath):
 	__author__ = "CLiGS"
 	__authors__ = ""
 	__email__ = ""
-	__license__ = ""
-	__version__ = "0.3.0"
-	__date__ = "2016-03-20"
-	
+
     Extract selected text from TEI P5 files and write TXT files.
     
 	Keyword arguments:
@@ -123,10 +120,7 @@ def writesegment(segment, outfolder, filename, counter, mode="w"):
 	__author__ = "CLiGS"
 	__authors__ = ""
 	__email__ = ""
-	__license__ = ""
-	__version__ = "0.3.0"
-	__date__ = "2016-03-20"
-	
+
 	Write segments.
 	"""
     segname = join(outfolder, filename + "§{:04d}".format(counter) + ".txt")
@@ -142,10 +136,7 @@ def write(segment, file, mode = "w"):
 	__author__ = "CLiGS"
 	__authors__ = ""
 	__email__ = ""
-	__license__ = ""
-	__version__ = "0.3.0"
-	__date__ = "2016-03-20"
-	
+
 	Write segments into files.
 	"""
     with open(file, mode) as output:
@@ -163,10 +154,7 @@ def writesegment(segment, outfolder, filename, target, tolerancefactor, preserve
 	__author__ = "CLiGS"
 	__authors__ = ""
 	__email__ = ""
-	__license__ = ""
-	__version__ = "0.3.0"
-	__date__ = "2016-03-20"
-	
+
 	Write segments.
 	"""
     from os.path import join
@@ -253,10 +241,7 @@ def segmenter(inpath, outfolder, target, sizetolerancefactor, preserveparagraphs
 	__author__ = "CLiGS"
 	__authors__ = ""
 	__email__ = ""
-	__license__ = ""
-	__version__ = "0.3.0"
-	__date__ = "2016-03-20"
-	
+
 	Turning plain text files into equal-sized segments, with limited respect for paragraph boundaries.
 	"""
     print("\nLaunched segmenter.")
@@ -308,10 +293,7 @@ def segments_to_bins(inpath, outfolder, binsnb):
 	__author__ = "CLiGS"
 	__authors__ = ""
 	__email__ = ""
-	__license__ = ""
-	__version__ = "0.3.0"
-	__date__ = "2016-03-20"
-	
+
     Sorting text segments into bins.
     """
     print("\nLaunched segments_to_bins.")
@@ -415,10 +397,7 @@ def call_treetagger(infolder, outfolder, tagger):
 	__author__ = "CLiGS"
 	__authors__ = ""
 	__email__ = ""
-	__license__ = ""
-	__version__ = "0.3.0"
-	__date__ = "2016-03-20"
-	
+
 	Call TreeTagger from Python.
 	"""
     print("\nLaunched call_treetagger.")
@@ -447,10 +426,7 @@ def make_lemmatext(inpath, outfolder, mode, stoplist_errors):
 	__author__ = "CLiGS"
 	__authors__ = ""
 	__email__ = ""
-	__license__ = ""
-	__version__ = "0.3.0"
-	__date__ = "2016-03-20"
-	
+
 	Extract lemmas from TreeTagger output.
 	"""
     print("\nLaunched make_lemmatext.")

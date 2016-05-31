@@ -26,10 +26,7 @@ def readCorpus(path):
 	__author__ = "DARIAH"
 	__authors__ = "Steffen Pielstroem"
 	__email__ = "pielstroem@biozentrum.uni-wuerzburg.de"
-	__license__ = ""
-	__version__ = ""
-	__date__ = = ""
-	
+
 	Read corpus into a list of lists and return the list.
 	
 	Key argument:
@@ -48,10 +45,7 @@ def docLabels(path):
 	__author__ = "DARIAH"
 	__authors__ = "Steffen Pielstroem"
 	__email__ = "pielstroem@biozentrum.uni-wuerzburg.de"
-	__license__ = ""
-	__version__ = ""
-	__date__ = = ""
-	
+
 	Create and return a list of document labels from file names.
 	"""
     labels = [os.path.basename(x) for x in glob.glob(path)]
@@ -67,10 +61,7 @@ def tokenize(documents):
 	__author__ = "DARIAH"
 	__authors__ = "Steffen Pielstroem"
 	__email__ = "pielstroem@biozentrum.uni-wuerzburg.de"
-	__license__ = ""
-	__version__ = ""
-	__date__ = = ""
-	
+
 	Tokenize and return text.
 	"""
     # define regular expression for tokenization
@@ -89,10 +80,7 @@ def removeHapaxLeg(texts):
 	__author__ = "DARIAH"
 	__authors__ = "Steffen Pielstroem"
 	__email__ = "pielstroem@biozentrum.uni-wuerzburg.de"
-	__license__ = ""
-	__version__ = ""
-	__date__ = = ""
-	
+
 	Remove hapax legomena and return text.
 	"""
     frequency = defaultdict(int)
@@ -108,10 +96,7 @@ def removeStopWords(texts, stoplist):
 	__author__ = "DARIAH"
 	__authors__ = "Steffen Pielstroem"
 	__email__ = "pielstroem@biozentrum.uni-wuerzburg.de"
-	__license__ = ""
-	__version__ = ""
-	__date__ = = ""
-	
+
 	Remove stopwords according to stopword list and return text.
 	"""
     if isinstance(stoplist, str):
