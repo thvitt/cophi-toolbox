@@ -21,6 +21,7 @@ setup(
         'numpy>=1.8.1',
         'pandas>=0.13.1',
         'scipy>=0.14.0',
+        'lxml',
         'regex'
     ],
     test_suite='nose.collector'
