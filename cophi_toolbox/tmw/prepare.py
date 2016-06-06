@@ -24,10 +24,10 @@ import re
 import os
 import glob
 import pandas as pd
-from os import listdir
+# from os import listdir
 from os.path import join
-from nltk.tokenize import word_tokenize
-import glob
+# from nltk.tokenize import word_tokenize
+# import glob
 import subprocess
 from lxml import etree
 
