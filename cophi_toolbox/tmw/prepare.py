@@ -41,14 +41,32 @@ from lxml import etree
 
 def read_tei5(teiPath, txtFolder, xpath):
     """
-    __author__ = "CLiGS"
-    __authors__ = ""
-    __email__ = ""
-
     Extract selected text from TEI P5 files and write TXT files.
 
-    Keyword arguments:
-    xpath (string): "alltext", "bodytext, "seg" or "said".
+    Args:
+        teiPath (str): Path / glob pattern of the TEI files to process.
+        txtFolder (str): Path to a folder where to write the text files. Will
+            be created if it doesn't exist yet.
+        xpath (str): From what should the text be extracted?
+
+            ``alltext``
+                all text nodes, including header
+            ``bodytext``
+                text nodes from the body only
+            ``seg``
+                Only text that is included in ``seg`` elements
+            ``said``
+                Only text that is included in ``said`` elements
+
+    Todo:
+        * do we need :func:`lxml.etree.strip_tags` at all? If so, make configurable & sanitize with `xpath` option
+        * the :func:`lxml.etree.strip_elements` stuff should be made configurable
+        * filename munging should use os.path etc.
+        * code cleanup
+        * logging instead of print()
+
+    Author:
+        CLiGS
     """
     if not os.path.exists(txtFolder):
         os.makedirs(txtFolder)
@@ -57,7 +75,7 @@ def read_tei5(teiPath, txtFolder, xpath):
     for file in glob.glob(teiPath):
         with open(file, "r"):
             filename = os.path.basename(file)[:-4]
-            idno = filename[:6] # assumes idno is at the start of filename.
+            idno = filename[:6]  # assumes idno is at the start of filename.
             #print("Treating " + idno)
             counter +=1
             xml = etree.parse(file)
