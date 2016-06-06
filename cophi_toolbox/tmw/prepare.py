@@ -1,16 +1,20 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-# Filename: prepare.py
 
 """
+Functions to prepare a topic modelling corpus.
+
+This module has been imported from the CLiGS project.
+"""
+
+
+
 __author__ = "CLiGS"
 __authors__ = "Christof Schoech, Daniel Schloer"
 __email__ = "christof.schoech@uni-wuerzburg.de"
 __license__ = ""
 __version__ = "0.3.0"
 __date__ = "2016-03-20"
-"""
-
 
 ##################################################################
 ###  Topic Modeling Workflow (tmw):                            ###
