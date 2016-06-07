@@ -22,16 +22,16 @@ from collections import defaultdict
 ################################################################################
 
 def readCorpus(path):
-	"""
-	__author__ = "DARIAH"
-	__authors__ = "Steffen Pielstroem"
-	__email__ = "pielstroem@biozentrum.uni-wuerzburg.de"
+    """
+    __author__ = "DARIAH"
+    __authors__ = "Steffen Pielstroem"
+    __email__ = "pielstroem@biozentrum.uni-wuerzburg.de"
 
-	Read corpus into a list of lists and return the list.
-	
-	Key argument:
-	path (string)
-	"""
+    Read corpus into a list of lists and return the list.
+
+    Key argument:
+    path (string)
+    """
     files = glob.glob(path)
     documents = []
     for file in files:

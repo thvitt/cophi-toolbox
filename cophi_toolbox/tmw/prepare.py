@@ -1,16 +1,20 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+
 """
+Functions to prepare a topic modelling corpus.
+
+This module has been imported from the CLiGS project.
+"""
+
+
+
 __author__ = "CLiGS"
 __authors__ = "Christof Schoech, Daniel Schloer"
 __email__ = "christof.schoech@uni-wuerzburg.de"
 __license__ = ""
 __version__ = "0.3.0"
 __date__ = "2016-03-20"
-"""
-
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
-# Filename: prepare.py
-
 
 ##################################################################
 ###  Topic Modeling Workflow (tmw):                            ###
@@ -24,10 +28,10 @@ import re
 import os
 import glob
 import pandas as pd
-from os import listdir
+# from os import listdir
 from os.path import join
-from nltk.tokenize import word_tokenize
-import glob
+# from nltk.tokenize import word_tokenize
+# import glob
 import subprocess
 from lxml import etree
 
@@ -37,14 +41,32 @@ from lxml import etree
 
 def read_tei5(teiPath, txtFolder, xpath):
     """
-	__author__ = "CLiGS"
-	__authors__ = ""
-	__email__ = ""
-
     Extract selected text from TEI P5 files and write TXT files.
-    
-	Keyword arguments:
-	xpath (string): "alltext", "bodytext, "seg" or "said".
+
+    Args:
+        teiPath (str): Path / glob pattern of the TEI files to process.
+        txtFolder (str): Path to a folder where to write the text files. Will
+            be created if it doesn't exist yet.
+        xpath (str): From what should the text be extracted?
+
+            ``alltext``
+                all text nodes, including header
+            ``bodytext``
+                text nodes from the body only
+            ``seg``
+                Only text that is included in ``seg`` elements
+            ``said``
+                Only text that is included in ``said`` elements
+
+    Todo:
+        * do we need :func:`lxml.etree.strip_tags` at all? If so, make configurable & sanitize with `xpath` option
+        * the :func:`lxml.etree.strip_elements` stuff should be made configurable
+        * filename munging should use os.path etc.
+        * code cleanup
+        * logging instead of print()
+
+    Author:
+        CLiGS
     """
     if not os.path.exists(txtFolder):
         os.makedirs(txtFolder)
@@ -53,7 +75,7 @@ def read_tei5(teiPath, txtFolder, xpath):
     for file in glob.glob(teiPath):
         with open(file, "r"):
             filename = os.path.basename(file)[:-4]
-            idno = filename[:6] # assumes idno is at the start of filename.
+            idno = filename[:6]  # assumes idno is at the start of filename.
             #print("Treating " + idno)
             counter +=1
             xml = etree.parse(file)
@@ -82,16 +104,16 @@ def read_tei5(teiPath, txtFolder, xpath):
             xp_alltext = "//text()"
             xp_seg = "//tei:body//tei:seg//text()"
             xp_said = "//tei:body//tei:said//text()"
-            
+
             ### Applying one of the above XPaths, based on parameter passed.
             ### USER: use on of the xpath values used here in the parameters.
-            if xpath == "bodytext": 
+            if xpath == "bodytext":
                 text = xml.xpath(xp_bodytext, namespaces=namespaces)
-            if xpath == "alltext": 
+            if xpath == "alltext":
                 text = xml.xpath(xp_alltext, namespaces=namespaces)
-            if xpath == "seg": 
+            if xpath == "seg":
                 text = xml.xpath(xp_seg, namespaces=namespaces)
-            if xpath == "said": 
+            if xpath == "said":
                 text = xml.xpath(xp_said, namespaces=namespaces)
             text = "\n".join(text)
 
@@ -105,10 +127,10 @@ def read_tei5(teiPath, txtFolder, xpath):
             outfile = os.path.join(txtFolder, filename +".txt")
         with open(outfile,"w") as output:
             output.write(outtext)
-            
+
     print("Done. Files treated: " + str(counter))
 
-    
+
 
 #################################
 # Segmenter                     #
@@ -116,13 +138,13 @@ def read_tei5(teiPath, txtFolder, xpath):
 
 # Utility function for writing segments
 def writesegment(segment, outfolder, filename, counter, mode="w"):
-	"""
-	__author__ = "CLiGS"
-	__authors__ = ""
-	__email__ = ""
+    """
+    __author__ = "CLiGS"
+    __authors__ = ""
+    __email__ = ""
 
-	Write segments.
-	"""
+    Write segments.
+    """
     segname = join(outfolder, filename + "§{:04d}".format(counter) + ".txt")
     with open(segname, mode) as output:
         output.write(' '.join(segment))
@@ -132,13 +154,13 @@ def writesegment(segment, outfolder, filename, counter, mode="w"):
 
 # Utility function for writing into files
 def write(segment, file, mode = "w"):
-	"""
-	__author__ = "CLiGS"
-	__authors__ = ""
-	__email__ = ""
+    """
+    __author__ = "CLiGS"
+    __authors__ = ""
+    __email__ = ""
 
-	Write segments into files.
-	"""
+    Write segments into files.
+    """
     with open(file, mode) as output:
         output.write(' '.join(segment))
         output.close()
@@ -150,13 +172,13 @@ currentsegmentsize = 0
 
 # Utility function for writing segments
 def writesegment(segment, outfolder, filename, target, tolerancefactor, preserveparagraphs):
-	"""
-	__author__ = "CLiGS"
-	__authors__ = ""
-	__email__ = ""
+    """
+    __author__ = "CLiGS"
+    __authors__ = ""
+    __email__ = ""
 
-	Write segments.
-	"""
+    Write segments.
+    """
     from os.path import join
     global currentsegmentsize
     global counter
@@ -238,12 +260,12 @@ def writesegment(segment, outfolder, filename, target, tolerancefactor, preserve
 
 def segmenter(inpath, outfolder, target, sizetolerancefactor, preserveparagraphs = False):
     """
-	__author__ = "CLiGS"
-	__authors__ = ""
-	__email__ = ""
+    __author__ = "CLiGS"
+    __authors__ = ""
+    __email__ = ""
 
-	Turning plain text files into equal-sized segments, with limited respect for paragraph boundaries.
-	"""
+    Turning plain text files into equal-sized segments, with limited respect for paragraph boundaries.
+    """
     print("\nLaunched segmenter.")
 
     from os.path import join
@@ -394,19 +416,19 @@ def segments_to_bins(inpath, outfolder, binsnb):
 
 def call_treetagger(infolder, outfolder, tagger):
     """
-	__author__ = "CLiGS"
-	__authors__ = ""
-	__email__ = ""
+    __author__ = "CLiGS"
+    __authors__ = ""
+    __email__ = ""
 
-	Call TreeTagger from Python.
-	"""
+    Call TreeTagger from Python.
+    """
     print("\nLaunched call_treetagger.")
     inpath = infolder + "*.txt"
     infiles = glob.glob(inpath)
     counter = 0
     if not os.path.exists(outfolder):
         os.makedirs(outfolder)
-    for infile in infiles: 
+    for infile in infiles:
         #print(os.path.basename(infile))
         counter+=1
         outfile = os.path.join(outfolder, os.path.basename(infile)[:-4] + ".trt")
@@ -415,7 +437,7 @@ def call_treetagger(infolder, outfolder, tagger):
         subprocess.call(command, shell=True)
     print("Files treated: ", counter)
     print("Done.")
-    
+
 
 #################################
 # make_lemmatext                #
@@ -423,17 +445,17 @@ def call_treetagger(infolder, outfolder, tagger):
 
 def make_lemmatext(inpath, outfolder, mode, stoplist_errors):
     """
-	__author__ = "CLiGS"
-	__authors__ = ""
-	__email__ = ""
+    __author__ = "CLiGS"
+    __authors__ = ""
+    __email__ = ""
 
-	Extract lemmas from TreeTagger output.
-	"""
+    Extract lemmas from TreeTagger output.
+    """
     print("\nLaunched make_lemmatext.")
 
     if not os.path.exists(outfolder):
         os.makedirs(outfolder)
-    with open(stoplist_errors, "r") as infile: 
+    with open(stoplist_errors, "r") as infile:
         stoplist = infile.read()
     counter = 0
     for file in glob.glob(inpath):
@@ -442,7 +464,7 @@ def make_lemmatext(inpath, outfolder, mode, stoplist_errors):
             counter+=1
             text = infile.read()
             splittext = re.split("\n",text)
-            
+
             lemmata = []
             for line in splittext:
                 splitline = re.split("\t",line)
@@ -482,7 +504,7 @@ def make_lemmatext(inpath, outfolder, mode, stoplist_errors):
                             lemmata.append(lemma.lower())
                         elif "Nc" in pos and "|" in lemma:
                             lemmata.append(token.lower())
-            ## Continue with list of lemmata, but remove undesired leftover words         
+            ## Continue with list of lemmata, but remove undesired leftover words
             lemmata = ' '.join([word for word in lemmata if word not in stoplist])
             lemmata = re.sub("[ ]{1,4}"," ", lemmata)
             newfilename = os.path.basename(file)[:-4] + ".txt"
