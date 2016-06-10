@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-from setuptools import setup
+from setuptools import setup, find_packages
 
 setup(
     name='cophi_toolbox',
@@ -12,7 +12,7 @@ setup(
         'Development Status :: 3 - Alpha',
         'Programming Language :: Python :: 3',
     ],
-    packages=['cophi_toolbox'],
+    packages=find_packages(exclude=['docs', 'test']),
     setup_requires=[
         'numpy'       # work around https://github.com/numpy/numpy/issues/2434
     ],
