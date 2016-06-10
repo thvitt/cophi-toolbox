@@ -6,11 +6,14 @@
 Welcome to Cophi Toolbox's documentation!
 =========================================
 
+
 Contents:
 
 .. toctree::
    :maxdepth: 2
 
+   README.rst
+   CONTRIBUTING.rst
 
 
 Indices and tables
