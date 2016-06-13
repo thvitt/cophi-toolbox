@@ -1,104 +1,136 @@
-"""
-__author__ = "DARIAH"
-__authors__ = "Steffen Pielstroem"
-__email__ = "pielstroem@biozentrum.uni-wuerzburg.de"
-__license__ = ""
-__version__ = ""
-__date__ = = ""
-"""
-
-################################################################################
-# Load all dependencies
-################################################################################
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
 
 import glob
 import os
 import re
 from collections import defaultdict
 
+__author__ = "DARIAH-DE"
+__authors__ = "Steffen Pielstroem"
+__email__ = "pielstroem@biozentrum.uni-wuerzburg.de"
+__license__ = ""
+__version__ = "0.1"
+__date__ = "2016-06-13"
 
-################################################################################
+########################################################################
 # Corpus ingestion
-################################################################################
+########################################################################
+
 
 def readCorpus(path):
     """
-    __author__ = "DARIAH"
-    __authors__ = "Steffen Pielstroem"
-    __email__ = "pielstroem@biozentrum.uni-wuerzburg.de"
+    Read corpus into a list of lists.
 
-    Read corpus into a list of lists and return the list.
+    Args:
+        path (str): Path / glob pattern of the text files to process.
 
-    Key argument:
-    path (string)
+    Author:
+        DARIAH-DE
     """
+
     files = glob.glob(path)
     documents = []
     for file in files:
-        document = open(file)
-        document = document.read()
-        documents.append(document)
+        with open(file, 'r', encoding='utf-8') as document:
+            document = document.read()
+            documents.append(document)
     return documents
 
-def docLabels(path):
-	"""
-	__author__ = "DARIAH"
-	__authors__ = "Steffen Pielstroem"
-	__email__ = "pielstroem@biozentrum.uni-wuerzburg.de"
 
-	Create and return a list of document labels from file names.
-	"""
+def docLabels(path):
+    """
+    Create a list of names (of the files) using paths and return a
+    list.
+
+    Args:
+        path (str): Path/glob pattern of the text files to process.
+
+    Author:
+        DARIAH-DE
+    """
+
     labels = [os.path.basename(x) for x in glob.glob(path)]
     labels = [x.split('.')[0] for x in labels]
     return labels
 
-################################################################################
+########################################################################
 # Preprocessing
-################################################################################
+########################################################################
+
 
 def tokenize(documents):
-	"""
-	__author__ = "DARIAH"
-	__authors__ = "Steffen Pielstroem"
-	__email__ = "pielstroem@biozentrum.uni-wuerzburg.de"
+    """
+    Tokenize (means breaking a stream of text up into words) text and
+    return in a list of lists.
 
-	Tokenize and return text.
-	"""
+    Args:
+        documents (List[str]): List of lists containing text.
+
+    Todo:
+        * Using version from gensim tutorial without regex?
+            `texts = [[word for word in document.lower().split()]
+                     for document in documents]`
+
+    Author:
+        DARIAH-DE
+    """
+
     # define regular expression for tokenization
-    myRegEx = re.compile('\w+') # compile regex for fast repetition
+    myRegEx = re.compile('\w+')  # compile regex for fast repetition
     texts = []
     for document in documents:
         text = myRegEx.findall(document.lower())
         texts.append(text)
-    # Version from Gensim-Tutorial: whithout regex
-    #texts = [[word for word in document.lower().split()]
-    #         for document in documents]
     return texts
 
-def removeHapaxLeg(texts):
-	"""
-	__author__ = "DARIAH"
-	__authors__ = "Steffen Pielstroem"
-	__email__ = "pielstroem@biozentrum.uni-wuerzburg.de"
 
-	Remove hapax legomena and return text.
-	"""
+def removeHapaxLeg(texts):
+    """
+    Remove hapax legomena (words that occurs only once within a
+    context) and return text.
+
+    Args:
+        texts (List[str]): List of lists containing tokens.
+
+    Author:
+        DARIAH-DE
+    """
+
     frequency = defaultdict(int)
     for text in texts:
         for token in text:
             frequency[token] += 1
-    texts = [[token for token in text if frequency[token] > 1]
-            for text in texts]
+        texts = [[token for token in text if frequency[token] > 1]
+                 for text in texts]
     return texts
 
-def removeStopWords(texts, stoplist):
-	"""
-	__author__ = "DARIAH"
-	__authors__ = "Steffen Pielstroem"
-	__email__ = "pielstroem@biozentrum.uni-wuerzburg.de"
 
-	Remove stopwords according to stopword list and return text.
-	"""
+def removeStopWords(texts, stoplist):
+    """
+    Remove stopwords (usually refer to the most common words) according
+    to selected stopword list and return text.
+
+    Args:
+        texts (List[str]): List of lists containing tokens.
+        stoplist (str): Corpus language?
+
+            ``de``
+                German
+            ``en``
+                English
+            ``es``
+                Spanish
+            ``fr``
+                French
+
+    Todo:
+        * Replace `.helpful_stuff/stopwords/`
+
+    Author:
+        DARIAH-DE
+    """
+
     if isinstance(stoplist, str):
         file = open('./helpful_stuff/stopwords/' + stoplist)
         stoplist = file.read()
@@ -107,4 +139,3 @@ def removeStopWords(texts, stoplist):
     texts = [[word for word in text if word not in stoplist]
              for text in texts]
     return texts
-
