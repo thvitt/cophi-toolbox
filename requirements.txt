@@ -1,5 +1,6 @@
 -e .
 
 nose
+nosexcover
 Sphinx
 sphinxcontrib-epydoc
