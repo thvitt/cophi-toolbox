@@ -6,6 +6,7 @@ Subpackages
 
 .. toctree::
 
+    cophi_toolbox.dariah
     cophi_toolbox.tmw
 
 Module contents
