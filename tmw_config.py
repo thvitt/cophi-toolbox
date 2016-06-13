@@ -29,7 +29,7 @@ __date__ = "2015-08-27"
 # 4. Visualization
 # 5. Other / Obsolete
 
-import tmw
+import cophi_toolbox.tmw.prepare as tmw
 #print(help(topmod))
 
 ### Set the general working directory.
