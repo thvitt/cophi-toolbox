@@ -139,11 +139,11 @@ def read_tei5(teiPath, txtFolder, xpath):
 # Utility function for writing segments
 def writesegment(segment, outfolder, filename, counter, mode="w"):
     """
+    subfuntcion of segmenter(), currently not in use;
     Writes a segment to a file
-    currently not in use; only the other writesegment() is called by segmenter()
 
     Args:
-        segment (List): A list containing words of the segment.
+        segment (List): A list containing all words of the segment.
         outfolder (str): Path to a folder where to write the segment files. Will
             be created if it doesn't exist yet.
         filename (str): filename of the segment's origin
@@ -151,7 +151,7 @@ def writesegment(segment, outfolder, filename, counter, mode="w"):
         mode = "w": mode for the write function
 
     Todo:
-        * 
+        * get rid of it?
 
     Author:
         CLiGS
@@ -166,11 +166,14 @@ def writesegment(segment, outfolder, filename, counter, mode="w"):
 # Utility function for writing into files
 def write(segment, file, mode = "w"):
     """
-    __author__ = "CLiGS"
-    __authors__ = ""
-    __email__ = ""
-
-    Write segments into files.
+    subfunction of writesegment(segment, outfolder, filename, target, tolerancefactor, preserveparagraphs)
+    writes the segment to a file.
+    
+    Args:
+        segment(List): A list containing all words of the segment.
+        file: filename of the file to be written consisting of the segment's origin filename + a number extension
+        mode = "w": mode for the write function
+    
     """
     with open(file, mode) as output:
         output.write(' '.join(segment))
