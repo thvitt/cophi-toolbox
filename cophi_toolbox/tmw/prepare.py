@@ -139,11 +139,22 @@ def read_tei5(teiPath, txtFolder, xpath):
 # Utility function for writing segments
 def writesegment(segment, outfolder, filename, counter, mode="w"):
     """
-    __author__ = "CLiGS"
-    __authors__ = ""
-    __email__ = ""
+    Writes a segment to a file
+    currently not in use; only the other writesegment() is called by segmenter()
 
-    Write segments.
+    Args:
+        segment (List): A list containing words of the segment.
+        outfolder (str): Path to a folder where to write the segment files. Will
+            be created if it doesn't exist yet.
+        filename (str): filename of the segment's origin
+        counter(int): counter for the segment's filename extension
+        mode = "w": mode for the write function
+
+    Todo:
+        * 
+
+    Author:
+        CLiGS
     """
     segname = join(outfolder, filename + "§{:04d}".format(counter) + ".txt")
     with open(segname, mode) as output:
