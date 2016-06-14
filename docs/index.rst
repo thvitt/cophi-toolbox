@@ -10,16 +10,39 @@ Welcome to Cophi Toolbox's documentation!
 Contents:
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 1
 
    README.rst
    CONTRIBUTING.rst
 
 
-Indices and tables
-==================
+Aus TMW:
+--------
 
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`
+.. automodule:: cophi_toolbox.tmw.prepare
 
+   .. autosummary::
+   
+      call_treetagger
+      join
+      make_lemmatext
+      read_tei5
+      segmenter
+      segments_to_bins
+      write
+      writesegment
+   
+
+Aus DARIAH:
+-----------
+ 
+.. automodule:: cophi_toolbox.dariah.topics
+
+   .. autosummary::
+   
+      docLabels
+      readCorpus
+      removeHapaxLeg
+      removeStopWords
+      tokenize
+   
