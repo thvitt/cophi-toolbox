@@ -4,18 +4,17 @@ Cophi Toolbox
 
 This toolbox contains common functionality to prepare for analytic methods on texts, like topic modelling, stylometry, and contrastive methods.
 
+This is currently very work in progress.
 
-Contents
-========
-
-TODO
 
 Installation
 ============
 
-no end-user installation by now.
+To use the functions, you can install the most up-to-date version directly from
+GitHub using pip::
 
-See the text on contributing_.
+    pip install 'git+https://github.com/thvitt/cophi-toolbox#egg=cophi_toolbox'
+
 
 
 
