@@ -5,6 +5,8 @@
 Functions to prepare a topic modelling corpus.
 
 This module has been imported from the CLiGS project.
+
+ToDo: handle global variables
 """
 
 
@@ -141,7 +143,8 @@ def writesegment(segment, outfolder, filename, counter, mode="w"):
     """
     subfuntcion of segmenter(), currently not in use;
     Writes a segment to a file
-
+    Currently not in use
+    
     Args:
         segment (List): A list containing all words of the segment.
         outfolder (str): Path to a folder where to write the segment files. Will
@@ -187,11 +190,25 @@ currentsegmentsize = 0
 # Utility function for writing segments
 def writesegment(segment, outfolder, filename, target, tolerancefactor, preserveparagraphs):
     """
-    __author__ = "CLiGS"
-    __authors__ = ""
-    __email__ = ""
+    subfuntcion of segmenter()
+    
 
-    Write segments.
+    Args:
+        segment (List): A list containing all words (tokenized) of one line of an input text.
+        outfolder (str): Path to a folder where to write the segment files. Will
+            be created if it doesn't exist yet.
+        filename (str): filename of the segment's origin
+        target ():
+        tolerancefactor ():
+        preserveparagraph ():
+
+    Todo:
+        * currentsegmentsoze and counter are set globally once again.
+        *if segment == ["\n"] or len(segment) < 1: there is probably a more elegant way to do this
+        * arg "segment" is actually only a tokenized line +\n  of a textfile as a list -> rename it
+        
+    Author:
+        CLiGS
     """
     from os.path import join
     global currentsegmentsize
@@ -274,11 +291,31 @@ def writesegment(segment, outfolder, filename, target, tolerancefactor, preserve
 
 def segmenter(inpath, outfolder, target, sizetolerancefactor, preserveparagraphs = False):
     """
-    __author__ = "CLiGS"
-    __authors__ = ""
-    __email__ = ""
-
-    Turning plain text files into equal-sized segments, with limited respect for paragraph boundaries.
+    Turns plain text files into equal-sized segments, with limited respect for paragraph boundaries.
+    
+    output files are named after the fileneme of the text file with a 6 digit extension.
+    output files will be saved at directory "outfolder"
+    tokenizes texfiles and deletes whitespacethe by line
+    calls writesegment(words, outfolder, filename, target, sizetolerancefactor, preserveparagraphs)
+    
+    Args:
+        inpath(str): directory of the folder containing text files to be segmented
+        outfolder(str): target for output files
+        target():
+        sizetolerancefactor:
+        preserveparagraph = False:
+        
+    Author:
+        CLiGS
+        
+    ToDo:
+        * for relfile in glob.glob(inpath):
+            file = join(inpath, relfile)
+            is better written as for relfile in glob.glob(inpath+"/*.txt)
+            probably even better to use glob.iglob
+        * filename = os.path.basename(file)[:-4]
+            use os.splitext instead
+        *counter and currentsegmentsize are defined locally and globally     
     """
     print("\nLaunched segmenter.")
 
@@ -295,9 +332,9 @@ def segmenter(inpath, outfolder, target, sizetolerancefactor, preserveparagraphs
         file = join(inpath, relfile)
         with open(file, "r") as infile:
             filename = os.path.basename(file)[:-4]
-            counter = 0
-            currentsegmentsize = 0
-            segname = join(outfolder, filename + "§{:06d}".format(counter) + ".txt")
+            counter = 0 #!!!!!! already exists as global counter
+            currentsegmentsize = 0#!!!!!  already exists as global counter
+            segname = join(outfolder, filename + "§{:06d}".format(counter) + ".txt") #creates 6digit file name extension
             relname = filename + "§{:06d}".format(counter) + ".txt"
             if os.path.isfile(segname):
                 os.remove(segname)
