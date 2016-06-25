@@ -200,7 +200,7 @@ def writesegment(segment, outfolder, filename, target, tolerancefactor, preserve
         filename (str): filename of the segment's origin
         target ():
         tolerancefactor ():
-        preserveparagraph ():
+        preserveparagraphs ():
 
     Todo:
         * currentsegmentsoze and counter are set globally once again.
