@@ -1,6 +1,6 @@
 # Demonstrator (in development using Flask)
 
-- it's possible to implement [SGT](https://github.com/DARIAH-DE/StyleGuideTemplate), because Jinja2 comes with Flask
+- it's possible to implement [SGT](https://github.com/DARIAH-DE/StyleGuideTemplate), because Flask comes with Jinja2
 
 
 This is what Jinja2 does:
