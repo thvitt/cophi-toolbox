@@ -1,6 +1,6 @@
 # Demonstrator (in development using Flask)
 
-Run [flask.py](https://github.com/thvitt/cophi-toolbox/blob/master/demonstrator/Flask/flask.py) to select multiple TXT-files and tokenize the content (tokens displayed in the command-line). More to come...
+Run [demo.py](https://github.com/thvitt/cophi-toolbox/blob/master/demonstrator/Flask/flask.py) to select multiple TXT-files and tokenize the content (tokens displayed in the command-line). More to come...
 
 ***
 
