@@ -1,5 +1,4 @@
 from flask import Flask, request, render_template
-import glob
 import os
 import re
 from collections import defaultdict
