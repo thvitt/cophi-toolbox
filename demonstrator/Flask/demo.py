@@ -1,26 +1,47 @@
 from flask import Flask, request, render_template
+import glob
+import os
 import re
+from collections import defaultdict
+from werkzeug.utils import secure_filename
 
 app = Flask(__name__)
 
 @app.route('/')
 def index():
-    return render_template('minimal.html')
+    return render_template('index.html')
 
 @app.route('/upload', methods=['POST'])
 def upload_file():
-    uploaded_files = request.files.getlist('files')
+    files = request.files.getlist('files')
     documents = []
-    for x in uploaded_files:
-        document = x.read()
-        documents.append(str(document))
-    myRegEx = re.compile('\w+')  # compile regex for fast repetition
+    labels = []
     texts = []
+    for f in files:
+        document = f.read()
+        documents.append(str(document))
+        labels.append(secure_filename(f.filename))
+    labels = [x.split('.')[0] for x in labels]
+    regex = re.compile('\w+')
     for document in documents:
-        text = myRegEx.findall(document.lower())
+        text = regex.findall(document.lower())
         texts.append(text)
-    print(texts)
+    
+    frequency = defaultdict(int)
+    for text in texts:
+        for token in text:
+            frequency[token] += 1
+    texts = [[token for token in text if frequency[token] > 1] for text in texts]
+    
+    stoplist = request.files['stoplist']
+    stoplist = str(stoplist.readlines())
+    stoplist = regex.findall(stoplist)
+    stoplist = set(stoplist)
+    texts = [[word for word in text if word not in stoplist]
+             for text in texts]
+    print(texts, labels)
     return 'success'
 
 if __name__ == '__main__':
+    app.debug = True
     app.run()
