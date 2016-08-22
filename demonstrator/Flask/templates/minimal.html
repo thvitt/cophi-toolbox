@@ -1,10 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
 <body>
-    <h1>Upload files and tokenize</h1>
+    <h2>Upload files, create labels, tokenize, remove hapax legomena and stopwords according to selected list</h2>
     <form action="/upload" method="POST" enctype="multipart/form-data">
-        <input type="file" name="files" multiple>
-        <input type="submit" value="Send">
-    </form>
+        <h3>Select text files:</h3>
+        <input type="file" name="files" multiple><br>
+        <h3>Select stopwords list</h3>
+		<input type="file" name="stoplist"><br><br>
+		<input type="submit" value="Send">
+	</form>
 </body>
 </html>
