@@ -8,4 +8,4 @@ Run [demo.py](https://github.com/thvitt/cophi-toolbox/blob/master/demonstrator/F
 
 
 This is what Jinja2 makes possible:
-![screenshot](https://raw.githubusercontent.com/thvitt/cophi-toolbox/master/demonstrator/Jinja2/demonstrator.png)
+![screenshot](https://raw.githubusercontent.com/thvitt/cophi-toolbox/master/demonstrator/Jinja2/demo.png)
