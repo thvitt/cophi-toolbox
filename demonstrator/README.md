@@ -1,11 +1,18 @@
-# Demonstrator (in development using Flask)
+# Demonstrator
 
-Run [demo.py](https://github.com/thvitt/cophi-toolbox/blob/master/demonstrator/Flask/demo.py) to select multiple TXT-files and tokenize the content (tokens displayed in the command-line). More to come...
+### Requirements
+- [Flask](http://flask.pocoo.org)
+
+### Contents
+- **corpus**: Example text files
+- **static**: [SGT](https://github.com/DARIAH-DE/StyleGuideTemplate) stuff
+- **stopwords**: Stopword lists for German, English, French and Spanish
+- **templates**: HTML file to process
 
 ***
 
-- it's possible to implement [SGT](https://github.com/DARIAH-DE/StyleGuideTemplate), because Flask comes with Jinja2
+Run [demo.py](https://github.com/thvitt/cophi-toolbox/blob/master/demonstrator/demo.py) and visit `http://127.0.0.1:5000/`.
 
+***
 
-This is what Jinja2 makes possible:
-![screenshot](https://raw.githubusercontent.com/thvitt/cophi-toolbox/master/demonstrator/Jinja2/demo.png)
+![screenshot](https://raw.githubusercontent.com/thvitt/cophi-toolbox/c5f883fd987e647ae3c42c9be70b2f87b444a65b/demonstrator/Jinja2/screenshot.png)
