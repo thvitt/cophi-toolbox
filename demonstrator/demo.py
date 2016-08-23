@@ -1,8 +1,11 @@
+#!/usr/bin/env python3
+
 from flask import Flask, request, render_template
 import os
 import re
 from collections import defaultdict
 from werkzeug.utils import secure_filename
+import threading, webbrowser
 
 app = Flask(__name__)
 
@@ -42,5 +45,6 @@ def upload_file():
     return 'success'
 
 if __name__ == '__main__':
+    threading.Timer(1.25, lambda: webbrowser.open('http://127.0.0.1:5000')).start()
     app.debug = True
     app.run()
