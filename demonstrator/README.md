@@ -14,4 +14,5 @@
 Run [demo.py](https://github.com/thvitt/cophi-toolbox/blob/master/demonstrator/demo.py) and visit `http://127.0.0.1:5000/`
 
 
-![screenshot](https://raw.githubusercontent.com/thvitt/cophi-toolbox/master/demonstrator/Jinja2/screen.png)
+![screenshot](https://raw.githubusercontent.com/thvitt/cophi-toolbox/master/demonstrator/Jinja2/before.png)
+![screenshot](https://raw.githubusercontent.com/thvitt/cophi-toolbox/master/demonstrator/Jinja2/after.png)
