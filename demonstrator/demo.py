@@ -1,13 +1,14 @@
 #!/usr/bin/env python3
 
-from flask import Flask, request, render_template, send_file
 import re
-from collections import defaultdict
-from werkzeug.utils import secure_filename
 import threading, webbrowser
 import numpy as np
 import matplotlib.pyplot as plt
+from flask import Flask, request, render_template, send_file
+from collections import defaultdict
+from werkzeug.utils import secure_filename
 from gensim import corpora, models, similarities
+
 
 app = Flask(__name__)
 
@@ -17,6 +18,7 @@ def index():
 
 @app.route('/upload', methods=['POST'])
 def upload_file():
+    # Ingesting, reading and tokenizing files:
     files = request.files.getlist('files')
     documents = []
     labels = []
@@ -30,36 +32,36 @@ def upload_file():
     for document in documents:
         text = regex.findall(document.lower())
         texts.append(text)
-
+    # Removing hapax legomena:
     frequency = defaultdict(int)
     for text in texts:
         for token in text:
             frequency[token] += 1
     texts = [[token for token in text if frequency[token] > 1] for text in texts]
-
+    # Removing stopwords:
     stoplist = request.files['stoplist']
     stoplist = str(stoplist.readlines())
     stoplist = regex.findall(stoplist)
     stoplist = set(stoplist)
     texts = [[word for word in text if word not in stoplist]
              for text in texts]
-
+    # Creating Gensim model:
     dictionary = corpora.Dictionary(texts)
     corpus = [dictionary.doc2bow(text) for text in texts]
     model = models.LdaModel(corpus, id2word=dictionary, num_topics=10, passes=10)
-
+    # Creating topic labels:
     topic_labels = []
     for i in range(10):
         terms = [x[0] for x in model.show_topic(i, topn=3)]
         topic_labels.append(" ".join(terms))
-
+    # Creating doc-topic matrix:
     no_of_docs = len(documents)
     doc_topic = np.zeros((no_of_docs, 10))
     for doc, i in zip(corpus, range(no_of_docs)):
         topic_dist = model.__getitem__(doc)
         for topic in topic_dist:
             doc_topic[i][topic[0]] = topic[1]
-
+    # Creating heatmap:
     no_of_topics = len(labels)
     if no_of_topics > 20:
         plt.figure(figsize=(20, 20))
