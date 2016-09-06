@@ -1,19 +1,13 @@
 #!/usr/bin/env python3
 
 from flask import Flask, request, render_template, send_file
-import os
 import re
 from collections import defaultdict
 from werkzeug.utils import secure_filename
 import threading, webbrowser
-import logging
 import numpy as np
 import matplotlib.pyplot as plt
 from gensim import corpora, models, similarities
-from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas
-from matplotlib.figure import Figure
-from io import BytesIO
-
 
 app = Flask(__name__)
 
