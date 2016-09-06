@@ -105,20 +105,7 @@
 					<div id="content" class="primary-area">
 						<h1>Demonstrator</h1>
 						<div id="contentInner">
-							<form action="/upload" method="POST" enctype="multipart/form-data">
-								<div class="alert alert-info">
-									<button type="button" class="close" data-dismiss="alert">&times;</button>
-									Select multiple files to process data. Be aware of the file format: plain text.
-								</div>
-								<input type="file" name="files" multiple>
-								<hr>
-								<div class="alert alert-info">
-									<button type="button" class="close" data-dismiss="alert">&times;</button>
-									Select an appropriate stopwords list as e.g. available <a href="https://github.com/thvitt/cophi-toolbox/tree/master/demonstrator/stopwords">here</a>
-								</div>
-								<input type="file" name="stoplist"><br><br>
-								<input type="submit" value="Send">
-							</form>
+              <img src="{{ url_for('static', filename='congrats.svg') }}">
 						</div>
 					</div>
 				</div>
