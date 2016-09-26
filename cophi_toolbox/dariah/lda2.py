@@ -199,7 +199,21 @@ def preprocessing(path, columns, pos_tags, doc_size, doc_split, stopwordlist):
                     data.write("".join(textline))
    
 
+def makeDocLabels(path):
+    
+    """
+    Creates list of filenames
 
+    Args:
+        path (str): Path / glob pattern of the text files to process.
+		
+    Author:
+        DARIAH-DE
+    """
+    path = path + "/*"
+    doc_labels = [os.path.basename(name) for name in glob.glob(path)]
+    return doc_labels
+   
 preprocessing(path, columns, pos_tags, doc_size, doc_split, stopwordlist)
 
 # processed and optimized corpus
@@ -220,13 +234,13 @@ corpus = MyCorpus()
 #create output folder
 if not os.path.exists("out"): os.makedirs("out")
 
-corpusPath = os.path.join(os.path.join(os.getcwd(), "out"), '.'.join([foldername, 'mm']))
+corpusPath = os.path.join(os.path.join(os.getcwd(), "out"), ''.join([foldername, str(no_of_topics), '.mm']))
 
 MmCorpus.serialize(corpusPath, corpus)
 
 mm = MmCorpus(corpusPath)
 
-doc_labels = glob.glob("corpus/*")
+doc_labels = makeDocLabels(path)
 
 print("fitting the model ...\n")
 
@@ -249,18 +263,18 @@ print("saving results...\n")
 if not os.path.exists("out"): os.makedirs("out")
 
 # save doc_labels for further use
-with open(os.path.join(os.path.join(os.getcwd(), "out"),''.join([foldername, "_doclabels.txt"])), "w", encoding="utf-8") as f:
+with open(os.path.join(os.path.join(os.getcwd(), "out"),''.join([foldername, "_doclabels", str(no_of_topics), ".txt"])), "w", encoding="utf-8") as f:
     for item in doc_labels: f.write(item+"\n")
 	
 # save topics for further use
-with open(os.path.join(os.path.join(os.getcwd(), "out"), ''.join([foldername, "_topics.txt"])), "w", encoding="utf-8") as f:
+with open(os.path.join(os.path.join(os.getcwd(), "out"), ''.join([foldername , "_topics", str(no_of_topics), ".txt"])), "w", encoding="utf-8") as f:
     for item, i in zip(topics, enumerate(topics)):
         f.write("".join(["topic #",str(i[0]),": ",str(item),"\n"]))
 
 # save dictionary for further use
-dictionary.save(os.path.join(os.path.join(os.getcwd(), "out"), '.'.join([foldername, 'dict'])))
+dictionary.save(os.path.join(os.path.join(os.getcwd(), "out"), ''.join([foldername, str(no_of_topics), '.dict'])))
 
 # save model for further use
-model.save(os.path.join(os.path.join(os.getcwd(), "out"), '.'.join([foldername, 'lda'])))
+model.save(os.path.join(os.path.join(os.getcwd(), "out"), ''.join([foldername, str(no_of_topics), '.lda'])))
 
 print("\n topic modeling finished \n")
