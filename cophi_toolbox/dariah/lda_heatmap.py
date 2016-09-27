@@ -56,10 +56,14 @@ no_of_docs = len(doc_labels)
 
 doc_topic = np.zeros((no_of_docs, no_of_topics))
 
+# to get topic distribution from model
+# topic_dist is a list of tuples (topic_id, topic_prob)
+# save topic probability
 for doc, i in zip(corpus, range(no_of_docs)):           
-    topic_dist = model.__getitem__(doc)                 # to get topic distribution from model
-    for topic in topic_dist:                            # topic_dist is a list of tuples (topic_id, topic_prob)
-        doc_topic[i][topic[0]] = topic[1]               # save topic probability
+    topic_dist = model.__getitem__(doc)                 
+    for topic in topic_dist:                            
+        doc_topic[i][topic[0]] = topic[1]               
+		
 
 
 ########################################################################
@@ -68,14 +72,19 @@ for doc, i in zip(corpus, range(no_of_docs)):
 
 topic_labels = []
 
+# show_topic() returns tuples (word_prob, word)
 for i in range(no_of_topics):
-    topic_terms = [x[0] for x in model.show_topic(i, topn=3)]           # show_topic() returns tuples (word_prob, word)
+    topic_terms = [x[0] for x in model.show_topic(i, topn=3)]           
     topic_labels.append(" ".join(topic_terms))
 
 
+########################################################################
 # cf. https://de.dariah.eu/tatom/topic_model_visualization.html
+########################################################################
 
-if no_of_docs > 20 or no_of_topics > 20: plt.figure(figsize=(20,20))    # if many items, enlarge figure
+
+# if many items, enlarge figure
+if no_of_docs > 20 or no_of_topics > 20: plt.figure(figsize=(20,20))    
 plt.pcolor(doc_topic, norm=None, cmap='Reds')
 plt.yticks(np.arange(doc_topic.shape[0])+1.0, doc_labels)
 plt.xticks(np.arange(doc_topic.shape[1])+0.5, topic_labels, rotation='90')
