@@ -1,7 +1,7 @@
 from collections import Counter
 import logging
 
-log = logging.getLogger('cophi_toolbox.remove_sw_hl')
+log = logging.getLogger('cophi_toolbox.dariah.remove_sw_hl')
 log.addHandler(logging.NullHandler())
 
 # To enable logger, uncomment the following three lines.
