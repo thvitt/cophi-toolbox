@@ -3,7 +3,7 @@ import os
 import glob
 import logging
 
-log = logging.getLogger('cophi_toolbox.convert_corpusfile')
+log = logging.getLogger('cophi_toolbox.dariah.convert_corpusfile')
 log.addHandler(logging.NullHandler())
 
 # To enable logger, uncomment the following three lines.
