@@ -14,7 +14,7 @@ log.addHandler(logging.NullHandler())
 def makeCounter(path):
     with open(path, 'r', encoding='utf-8') as f:
         count = Counter(f.read().split())
-    log.info('Detected word frequency.')
+    log.info('Detected word frequencies.')
     return count
 
 #mycounter = makeCounter(path)
