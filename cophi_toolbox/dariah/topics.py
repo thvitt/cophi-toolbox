@@ -5,6 +5,8 @@ import glob
 import os
 import re
 from collections import defaultdict
+import logging
+
 
 __author__ = "DARIAH-DE"
 __authors__ = "Steffen Pielstroem"
@@ -13,6 +15,14 @@ __license__ = ""
 __version__ = "0.1"
 __date__ = "2016-06-13"
 
+log = logging.getLogger('cophi_toolbox.dariah.topics')
+log.addHandler(logging.NullHandler())
+
+# To enable logger, uncomment the following three lines.
+#logging.basicConfig(level=logging.INFO,
+#                    format='%(asctime)s %(levelname)s %(name)s: %(message)s',
+#                    datefmt='%d-%b-%Y %H:%M:%S')
+
 ########################################################################
 # Corpus ingestion
 ########################################################################
@@ -20,10 +30,10 @@ __date__ = "2016-06-13"
 
 def readCorpus(path):
     """
-    Read corpus into a list of lists.
+    Read corpus into strings.
 
     Args:
-        path (str): Path / glob pattern of the text files to process.
+        path (str): Path/glob pattern of the text files to process.
 
     Author:
         DARIAH-DE
@@ -35,6 +45,7 @@ def readCorpus(path):
         with open(file, 'r', encoding='utf-8') as document:
             document = document.read()
             documents.append(document)
+    log.info('Ingested corpus successfully.')
     return documents
 
 
@@ -52,6 +63,7 @@ def docLabels(path):
 
     labels = [os.path.basename(x) for x in glob.glob(path)]
     labels = [x.split('.')[0] for x in labels]
+    log.info('Created %s doc labels.', len(labels))
     return labels
 
 ########################################################################
@@ -82,6 +94,7 @@ def tokenize(documents):
     for document in documents:
         text = myRegEx.findall(document.lower())
         texts.append(text)
+    log.info('Successfully tokenized.')
     return texts
 
 
@@ -103,6 +116,7 @@ def removeHapaxLeg(texts):
             frequency[token] += 1
         texts = [[token for token in text if frequency[token] > 1]
                  for text in texts]
+    log.info('Removed hapax legomena.')
     return texts
 
 
@@ -138,4 +152,5 @@ def removeStopWords(texts, stoplist):
         stoplist = set(stoplist)
     texts = [[word for word in text if word not in stoplist]
              for text in texts]
+    log.info('Removed stopwords.')
     return texts
