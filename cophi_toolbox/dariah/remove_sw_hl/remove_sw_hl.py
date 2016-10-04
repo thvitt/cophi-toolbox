@@ -14,6 +14,7 @@ log.addHandler(logging.NullHandler())
 def makeCounter(path):
     with open(path, 'r', encoding='utf-8') as f:
         count = Counter(f.read().split())
+    log.info('Detected word frequency.')
     return count
 
 #mycounter = makeCounter(path)
@@ -26,8 +27,8 @@ def makeRemoveLists(mycounter):
 
     stopwords = set([stopw for stopw, value in mycounter.items() if value > countersum])
 
-    log.info('%s %s', len(hapax), 'hapax legomena removed.')
-    log.info('%s %s', len(stopwords), 'stopwords removed.')
+    log.info('%s %s', len(hapax), 'hapax legomena detected.')
+    log.info('%s %s', len(stopwords), 'stopwords detected.')
     return hapax, stopwords
 
 
@@ -49,7 +50,7 @@ def removestuff(inpath, outpath):
                 else:
                     log.info('%s %s', 'working on ...', i)
                     f.write(' '.join([word for word in line.split() if word not in hapax or stopwords]))
-                    log.info('----DONE----')
+                    log.info('Hapax legomena and stopwords removed.')
                     break
 
 #removestuff(path, "mycorpusremoved.txt", hapax, stopwords)
