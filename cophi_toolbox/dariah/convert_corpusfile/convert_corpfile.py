@@ -1,7 +1,15 @@
 import re
 import os
 import glob
+import logging
 
+log = logging.getLogger('cophi_toolbox.convert_corpusfile')
+log.addHandler(logging.NullHandler())
+
+# To enable logger, uncomment the following three lines.
+#logging.basicConfig(level=logging.INFO,
+#                    format='%(asctime)s %(levelname)s %(name)s: %(message)s',
+#                    datefmt='%d-%b-%Y %H:%M:%S')
 
 def makeCorpusFile(inDir : str,  outFileName : str) -> None:
     
@@ -12,7 +20,7 @@ def makeCorpusFile(inDir : str,  outFileName : str) -> None:
     outFileName -- prefered name of the output corpusfile
     """
     
-    print("\n writing corpusfile ... \n")
+    log.info('writing corpusfile ...')
     
     mastercorpus = os.path.join(os.getcwd(), outFileName)
     
@@ -29,7 +37,7 @@ def makeCorpusFile(inDir : str,  outFileName : str) -> None:
                 else:
                     data.write("".join(textline) + "\n" + ",".join(filenames))
     
-    print("\n corpusfile written successfully \n")
+    log.info('corpusfile written successfully')
     
 def readFromCorpusFile(corpusfile : str, outfolder : str) -> None:
     
@@ -40,25 +48,25 @@ def readFromCorpusFile(corpusfile : str, outfolder : str) -> None:
     outfolder -- prefered name of the output folder
     """
     
-    print("\n reading from corpus file ... \n")
+    log.info('reading from corpus file ...')
     
     mastercorpus = os.path.join(os.getcwd(), corpusfile)
     outfolderpath = os.path.join(os.getcwd(), outfolder)
     filenames = list(open(corpusfile, 'r', encoding = "utf-8"))[-1].split(",")
     
     if not os.path.exists(outfolderpath):
-        print("\n creating output folder ... \n")
+        log.info('creating output folder ...')
         os.makedirs(outfolder)
     
     with open(mastercorpus, 'r', encoding = "utf-8") as f:
         for name, line in zip(filenames, f):
             contentPath = os.path.join(outfolderpath, name + ".txt")
-            print("\n writing", os.path.basename(contentPath) ,"from corpusfile to ", outfolder, "\n")
+            log.info('%s %s %s %s', writing', os.path.basename(contentPath) , 'from corpusfile to ', outfolder)
             
             with open(contentPath, 'w', encoding = "utf-8") as file:
                 file.write(line)
-    print("\n reading successfull \n")
-    print("\n files from corpus written successfully \n")
+    log.info('reading successfull')
+    log.info('files from corpus written successfully')
      
 '''
 #
