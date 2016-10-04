@@ -1,4 +1,13 @@
 from collections import Counter
+import logging
+
+log = logging.getLogger('cophi_toolbox.remove_sw_hl')
+log.addHandler(logging.NullHandler())
+
+# To enable logger, uncomment the following three lines.
+#logging.basicConfig(level=logging.INFO,
+#                    format='%(asctime)s %(levelname)s %(name)s: %(message)s',
+#                    datefmt='%d-%b-%Y %H:%M:%S')
 
 #path = "mycorpusfile.txt"
 
@@ -17,8 +26,8 @@ def makeRemoveLists(mycounter):
 
     stopwords = set([stopw for stopw, value in mycounter.items() if value > countersum])
 
-    print(len(hapax))
-    print(len(stopwords))
+    log.info('%s %s', len(hapax), 'hapax legomena removed.')
+    log.info('%s %s', len(stopwords), 'stopwords removed.')
     return hapax, stopwords
 
 
@@ -34,13 +43,13 @@ def removestuff(inpath, outpath):
         with open(outpath, 'w', encoding='utf-8') as f:
             for i, line in enumerate(g):
                 if i != last:
-                    print("working on ...  ", i)
+                    log.info('%s %s', 'working on ...', i)
                     f.write(' '.join([word for word in line.split() if word not in hapax or stopwords]) + "\n")
                 
                 else:
-                    print("working on ...  ", i)
+                    log.info('%s %s', 'working on ...', i)
                     f.write(' '.join([word for word in line.split() if word not in hapax or stopwords]))
-                    print("\nFinished\n")
+                    log.info('----DONE----')
                     break
 
 #removestuff(path, "mycorpusremoved.txt", hapax, stopwords)
